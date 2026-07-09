@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEEKS STUDIO | 소규모 매장 전문 웹사이트 제작</title>
+<meta name="description" content="피트니스·웰니스 업종을 깊이 이해하는 웹 크리에이터. 소규모 매장 맞춤 홈페이지 제작, 네이버 플레이스 최적화, SNS 마케팅.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563EB'/%3E%3Ctext x='16' y='23' font-family='Inter,Arial,sans-serif' font-size='20' font-weight='700' fill='white' text-anchor='middle'%3EJ%3C/text%3E%3Ccircle cx='24' cy='8' r='3' fill='%2360A5FA'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & VARIABLES ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* Light Mode */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F7F8FA;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F0F2F5;
+  --text-primary: #1A1A2E;
+  --text-secondary: #555770;
+  --text-muted: #8E90A6;
+  --accent: #2563EB;
+  --accent-light: #DBEAFE;
+  --accent-dark: #1D4ED8;
+  --border: #E5E7EB;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.06), 0 4px 10px rgba(0,0,0,0.04);
+  --shadow-xl: 0 20px 50px rgba(0,0,0,0.08);
+  --gradient-hero: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+  --nav-bg: rgba(255,255,255,0.92);
+  --badge-bg: #EFF6FF;
+  --badge-text: #2563EB;
+  --process-line: #E5E7EB;
+  --toggle-bg: #E5E7EB;
+  --toggle-knob: #FFFFFF;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0F0F1A;
+  --bg-secondary: #1A1A2E;
+  --bg-card: #1E1E32;
+  --bg-card-hover: #2A2A42;
+  --text-primary: #F0F0F5;
+  --text-secondary: #B0B0C8;
+  --text-muted: #7A7A96;
+  --accent: #60A5FA;
+  --accent-light: #1E3A5F;
+  --accent-dark: #93C5FD;
+  --border: #2D2D44;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.3);
+  --shadow-xl: 0 20px 50px rgba(0,0,0,0.4);
+  --gradient-hero: linear-gradient(135deg, #0a0a18 0%, #0F0F2A 50%, #0A1628 100%);
+  --nav-bg: rgba(15,15,26,0.95);
+  --badge-bg: #1E3A5F;
+  --badge-text: #60A5FA;
+  --process-line: #2D2D44;
+  --toggle-bg: #3A3A55;
+  --toggle-knob: #F0F0F5;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Noto Sans KR', 'Inter', -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  transition: background 0.3s, color 0.3s;
+  overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===== NAV ===== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s, border 0.3s;
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav-logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-links a:hover { color: var(--accent); }
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.2s;
+}
+
+.nav-links a:hover::after { width: 100%; }
+
+/* Theme Toggle */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.theme-toggle-track {
+  width: 48px;
+  height: 26px;
+  background: var(--toggle-bg);
+  border-radius: 13px;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.theme-toggle-knob {
+  width: 20px;
+  height: 20px;
+  background: var(--toggle-knob);
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.3s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+[data-theme="dark"] .theme-toggle-knob {
+  transform: translateX(22px);
+}
+
+.theme-icon {
+  font-size: 1rem;
+  width: 20px;
+  text-align: center;
+}
+
+/* Mobile Menu */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-hamburger span {
+  width: 22px;
+  height: 2px;
+  background: var(--text-primary);
+  transition: all 0.3s;
+  border-radius: 1px;
+}
+
+.nav-hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-hamburger.active span:nth-child(2) { opacity: 0; }
+.nav-hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+@media (max-width: 768px) {
+  .nav-hamburger { display: flex; }
+  .nav-links {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px);
+    flex-direction: column;
+    padding: 24px;
+    gap: 20px;
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-120%);
+    transition: transform 0.3s;
+  }
+  .nav-links.open { transform: translateY(0); }
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: var(--gradient-hero);
+  position: relative;
+  overflow: hidden;
+  padding-top: 64px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(37,99,235,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(96,165,250,0.15);
+  color: #93C5FD;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 28px;
+  border: 1px solid rgba(96,165,250,0.2);
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.3;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+.hero h1 .highlight {
+  color: #60A5FA;
+}
+
+.hero-desc {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.7);
+  max-width: 560px;
+  margin-bottom: 36px;
+  line-height: 1.8;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: #2563EB;
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background: #1D4ED8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(37,99,235,0.4);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #FFFFFF;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.btn-outline:hover {
+  border-color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.05);
+}
+
+/* ===== SECTIONS COMMON ===== */
+section {
+  padding: 100px 0;
+}
+
+.section-label {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.section-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.8;
+}
+
+/* ===== ABOUT ===== */
+.about {
+  background: var(--bg-secondary);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 48px;
+}
+
+.about-text p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+
+.about-text strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  padding: 28px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-number {
+  font-family: 'Inter', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.stat-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ===== PORTFOLIO ===== */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  margin-top: 48px;
+}
+
+.portfolio-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: all 0.3s;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.portfolio-thumb {
+  width: 100%;
+  height: 220px;
+  background: var(--gradient-hero);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-thumb-text {
+  color: rgba(255,255,255,0.9);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 20px;
+  z-index: 1;
+}
+
+.portfolio-thumb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.2) 100%);
+}
+
+.portfolio-info {
+  padding: 24px;
+}
+
+.portfolio-info h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.portfolio-info p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.portfolio-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  font-size: 0.78rem;
+  padding: 4px 12px;
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  border-radius: 100px;
+  font-weight: 500;
+}
+
+.portfolio-empty {
+  background: var(--bg-card);
+  border: 2px dashed var(--border);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--text-muted);
+}
+
+.portfolio-empty-icon {
+  font-size: 2.5rem;
+  opacity: 0.5;
+}
+
+.portfolio-empty-text {
+  font-size: 0.95rem;
+}
+
+/* ===== SERVICES ===== */
+.services {
+  background: var(--bg-secondary);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.service-card {
+  background: var(--bg-card);
+  padding: 32px 28px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.service-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent);
+}
+
+.service-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--badge-bg);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+}
+
+.service-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+.service-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ===== PRICING ===== */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.pricing-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 36px 32px;
+  border: 1px solid var(--border);
+  position: relative;
+  transition: all 0.2s;
+}
+
+.pricing-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.pricing-card.featured {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-lg);
+}
+
+.pricing-card.featured::before {
+  content: 'BEST';
+  position: absolute;
+  top: -1px;
+  right: 24px;
+  background: var(--accent);
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 0 0 8px 8px;
+  letter-spacing: 1px;
+}
+
+.pricing-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.pricing-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.pricing-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+
+.pricing-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.pricing-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.pricing-feature .check {
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.btn-pricing {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-pricing:hover {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+}
+
+.pricing-card.featured .btn-pricing {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+}
+
+.pricing-card.featured .btn-pricing:hover {
+  background: var(--accent-dark);
+}
+
+/* ===== PROCESS ===== */
+.process {
+  background: var(--bg-secondary);
+}
+
+.process-timeline {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.process-step {
+  display: flex;
+  gap: 24px;
+  position: relative;
+}
+
+.process-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.process-dot {
+  width: 40px;
+  height: 40px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.process-line {
+  width: 2px;
+  flex: 1;
+  background: var(--process-line);
+  min-height: 40px;
+}
+
+.process-step:last-child .process-line { display: none; }
+
+.process-content {
+  padding-bottom: 40px;
+}
+
+.process-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  margin-top: 6px;
+}
+
+.process-content p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ===== CONTACT ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 48px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.contact-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--badge-bg);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.contact-item-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.contact-item-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition: border 0.2s;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+@media (max-width: 768px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== KAKAO BUTTON ===== */
+.btn-kakao {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: #FEE500;
+  color: #3C1E1E;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+
+.btn-kakao:hover {
+  background: #F5DC00;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(254,229,0,0.4);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  text-align: center;
+}
+
+.footer p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ===== ANIMATIONS ===== */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== SCROLL TOP BUTTON ===== */
+.scroll-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  background: var(--accent);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.scroll-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-top:hover {
+  transform: translateY(-2px);
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">JEEKS<span>.</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about" onclick="closeMenu()">소개</a>
+      <a href="#portfolio" onclick="closeMenu()">포트폴리오</a>
+      <a href="#services" onclick="closeMenu()">서비스</a>
+      <a href="#pricing" onclick="closeMenu()">가격</a>
+      <a href="#process" onclick="closeMenu()">프로세스</a>
+      <a href="#contact" onclick="closeMenu()">문의</a>
+      <div class="theme-toggle" onclick="toggleTheme()" title="테마 전환">
+        <span class="theme-icon" id="themeIcon">&#9790;</span>
+        <div class="theme-toggle-track">
+          <div class="theme-toggle-knob"></div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">&#9889; 피트니스·웰니스 전문 웹 크리에이터</div>
+    <h1>
+      매장의 첫인상을<br>
+      <span class="highlight">온라인에서도</span> 빛나게
+    </h1>
+    <p class="hero-desc">
+      현직 헬스트레이너의 실무 경험으로, 소규모 매장에 꼭 맞는 홈페이지를 만들어 드립니다.
+      합리적인 비용, 확실한 결과.
+    </p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn btn-primary">무료 상담 신청 &#8594;</a>
+      <a href="#portfolio" class="btn btn-outline">작업물 보기</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <span class="section-label">About</span>
+    <h2 class="section-title">업종을 이해하는 크리에이터</h2>
+    <p class="section-desc">단순한 개발자가 아닌, 현장 경험에서 출발한 파트너입니다.</p>
+    <div class="about-grid fade-up">
+      <div class="about-text">
+        <p>
+          안녕하세요. 현직 <strong>헬스트레이너</strong>로 일하면서, 피트니스·웰니스 업종의 사장님들이 온라인 마케팅에서 겪는 어려움을 직접 보아왔습니다.
+        </p>
+        <p>
+          "홈페이지가 필요한데 어디서 시작해야 할지 모르겠다", "큰 비용을 들이기엔 부담스럽다" — 이런 고민을 해결하기 위해 <strong>직접 웹사이트 기획·제작</strong>을 시작했습니다.
+        </p>
+        <p>
+          업종의 특성을 깊이 이해하고 있기 때문에, 사장님이 일일이 설명하지 않아도 <strong>핵심을 빠르게 캐치</strong>해서 홈페이지에 담아드립니다. 요가원, 필라테스, PT샵, 뷰티샵 등 소규모 오프라인 매장 전문입니다.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-number">5+</div>
+          <div class="stat-text">트레이너 실무 경력 (년)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-text">반응형 모바일 대응</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1:1</div>
+          <div class="stat-text">맞춤 기획 · 디자인</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">A/S</div>
+          <div class="stat-text">오픈 후 지속 관리</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <span class="section-label">Portfolio</span>
+    <h2 class="section-title">작업 사례</h2>
+    <p class="section-desc">직접 기획부터 개발까지 진행한 프로젝트입니다.</p>
+    <div class="portfolio-grid fade-up">
+      <!-- 아카샤요가 -->
+      <a href="https://akashayoga-hagye.co.kr/" target="_blank" rel="noopener" class="portfolio-card">
+        <div class="portfolio-thumb" style="background: url('akasha-studio.jpg') center/cover no-repeat;">
+          <div class="portfolio-thumb-text">
+            &#127993; 아카샤요가<br>하계점 · 중계점
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <h3>아카샤요가 하계점 / 중계점 <span style="font-size:0.8rem;color:var(--accent);">&#8599;</span></h3>
+          <p>지점 토글, 수업 시간표, 후기 시스템, 방문자 카운터 등을 포함한 반응형 원페이지 사이트. HTML/CSS/JS 단일 파일 기반으로 빠르고 가볍게 제작했습니다.</p>
+          <div class="portfolio-tags">
+            <span class="tag">원페이지</span>
+            <span class="tag">반응형</span>
+            <span class="tag">지점 토글</span>
+            <span class="tag">후기 시스템</span>
+          </div>
+        </div>
+      </a>
+      <!-- 준비중 -->
+      <div class="portfolio-empty">
+        <div class="portfolio-empty-icon">+</div>
+        <div class="portfolio-empty-text">다음 프로젝트 준비 중</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <span class="section-label">Services</span>
+    <h2 class="section-title">제공 서비스</h2>
+    <p class="section-desc">매장 운영에 실질적으로 도움이 되는 서비스만 모았습니다.</p>
+    <div class="services-grid fade-up">
+      <div class="service-card">
+        <div class="service-icon">&#128187;</div>
+        <h3>맞춤 홈페이지 제작</h3>
+        <p>소규모 매장에 최적화된 반응형 웹사이트. 빠른 로딩, 깔끔한 디자인, 모바일 완벽 대응.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128736;</div>
+        <h3>월 유지보수 · 관리</h3>
+        <p>오픈 후에도 안심. 콘텐츠 업데이트, 버그 수정, 보안 관리까지 월정액으로 편하게.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128205;</div>
+        <h3>네이버 플레이스 최적화</h3>
+        <p>네이버 검색에서 매장이 잘 노출되도록 플레이스 정보 최적화 및 관리.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#128242;</div>
+        <h3>SNS 마케팅 연계</h3>
+        <p>인스타그램, 블로그 등 SNS와 홈페이지를 연결해 통합 온라인 마케팅을 지원합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <span class="section-label">Pricing</span>
+    <h2 class="section-title">합리적인 가격</h2>
+    <p class="section-desc">매장 규모와 필요에 맞는 패키지를 선택하세요.</p>
+    <div class="pricing-grid fade-up">
+      <!-- 기본형 -->
+      <div class="pricing-card">
+        <div class="pricing-name">기본형</div>
+        <div class="pricing-desc">처음 홈페이지를 만드시는 사장님께</div>
+        <div class="pricing-price">상담 후 안내</div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="check">&#10003;</span> 반응형 원페이지 사이트</div>
+          <div class="pricing-feature"><span class="check">&#10003;</span> 모바일 최적화</div>
+          <div class="pricing-feature"><span class="check">&#10003;</span> 기본 SEO 설정</div>
+          <div class="pricing-feature"><span class="check">&#10003;</span> 1회 수정 포함</div>
+        </div>
+        <a href="#contact" class="btn-pricing">문의하기</a>
+      </div>
+      <!-- 프리미엄 -->
+      <div class="pricing-card featured">
+        <div class="pricing-name">프리미엄</div>
+        <div class="pricing-desc">제대로 된 온라인 존재감을 원하시는 분께</div>
+        <div class="pricing-price">상담 후 안내</div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="check">&#10003;</span> 멀티페이지 사이트</div>
+          <div class="pricing-feature"><span class="check">&#10003;</span> 예약/후기 시스템</div>
+          <div class="pricing-feature"><span class="check">&#10003;</span> 네이버 플레이스 최적화</div>
+          <div class="pricing-feature"><span class="check">&#10003;</span> 3회 수정 포함</div>
+          <div class="pricing-feature"><span class="check">&#10003;</span> 1개월 무료 유지보수</div>
+        </div>
+        <a href="#contact" class="btn-pricing">문의하기</a>
+      </div>
+      <!-- 올인원 -->
+      <div class="pricing-card">
+        <div class="pricing-name">올인원</div>
+        <div class="pricing-desc">홈페이지 + 마케팅 통합 관리</div>
+        <div class="pricing-price">상담 후 안내</div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="check">&#10003;</span> 프리미엄 패키지 전체 포함</div>
+          <div class="pricing-feature"><span class="check">&#10003;</span> SNS 마케팅 연계</div>
+          <div class="pricing-feature"><span class="check">&#10003;</span> 월 콘텐츠 관리</div>
+          <div class="pricing-feature"><span class="check">&#10003;</span> 무제한 수정</div>
+          <div class="pricing-feature"><span class="check">&#10003;</span> 3개월 무료 유지보수</div>
+        </div>
+        <a href="#contact" class="btn-pricing">문의하기</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="container">
+    <span class="section-label">Process</span>
+    <h2 class="section-title">작업 프로세스</h2>
+    <p class="section-desc">체계적인 단계로 완성도 높은 결과물을 만듭니다.</p>
+    <div class="process-timeline fade-up">
+      <div class="process-step">
+        <div class="process-marker">
+          <div class="process-dot">1</div>
+          <div class="process-line"></div>
+        </div>
+        <div class="process-content">
+          <h3>&#128172; 상담</h3>
+          <p>매장 특성, 원하시는 방향, 예산 등을 편하게 이야기합니다. 카카오톡이나 전화로 부담 없이 연락주세요.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-marker">
+          <div class="process-dot">2</div>
+          <div class="process-line"></div>
+        </div>
+        <div class="process-content">
+          <h3>&#128221; 기획</h3>
+          <p>상담 내용을 바탕으로 사이트 구조, 콘텐츠 방향, 레이아웃을 기획합니다. 시안 확인 후 진행합니다.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-marker">
+          <div class="process-dot">3</div>
+          <div class="process-line"></div>
+        </div>
+        <div class="process-content">
+          <h3>&#127912; 디자인</h3>
+          <p>매장의 분위기와 브랜드에 맞는 깔끔한 디자인을 제작합니다.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-marker">
+          <div class="process-dot">4</div>
+          <div class="process-line"></div>
+        </div>
+        <div class="process-content">
+          <h3>&#128296; 개발</h3>
+          <p>반응형 코딩, 모바일 최적화, 성능 튜닝까지 꼼꼼하게 개발합니다.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-marker">
+          <div class="process-dot">5</div>
+          <div class="process-line"></div>
+        </div>
+        <div class="process-content">
+          <h3>&#127881; 오픈</h3>
+          <p>도메인 연결, 최종 점검 후 사이트를 오픈합니다. 사용법도 안내드립니다.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-marker">
+          <div class="process-dot">6</div>
+          <div class="process-line"></div>
+        </div>
+        <div class="process-content">
+          <h3>&#128170; 유지보수</h3>
+          <p>오픈 후에도 콘텐츠 수정, 기능 추가, 보안 업데이트 등 지속적으로 관리해 드립니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <span class="section-label">Contact</span>
+    <h2 class="section-title">문의하기</h2>
+    <p class="section-desc">편하게 연락주세요. 빠르게 답변 드리겠습니다.</p>
+    <div class="contact-grid fade-up">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">&#9993;</div>
+          <div>
+            <div class="contact-item-label">이메일</div>
+            <div class="contact-item-value">jisso23@naver.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">&#9200;</div>
+          <div>
+            <div class="contact-item-label">응답 시간</div>
+            <div class="contact-item-value">평일 기준 24시간 이내</div>
+          </div>
+        </div>
+        <!-- 카카오톡 상담 버튼 -->
+        <a href="http://pf.kakao.com/_WZBwX/chat" target="_blank" rel="noopener" class="btn-kakao">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 1C5.03 1 1 4.16 1 8.04c0 2.53 1.67 4.74 4.17 6.02-.13.47-.83 3.03-.86 3.22 0 0-.02.14.07.2.1.05.2.02.2.02.27-.04 3.1-2.04 3.59-2.39.27.04.54.06.83.06 4.97 0 9-3.16 9-7.04S14.97 1 10 1z" fill="#3C1E1E"/></svg>
+          카카오톡으로 상담하기
+        </a>
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-top:-8px;">폼으로 문의하시면 이메일로 바로 전달됩니다.</p>
+      </div>
+      <!-- Formspree 연동 폼 -->
+      <form class="contact-form" action="https://formspree.io/f/meebbkow" method="POST">
+        <div class="form-group">
+          <label>성함</label>
+          <input type="text" name="name" placeholder="성함을 입력해주세요" required>
+        </div>
+        <div class="form-group">
+          <label>연락처</label>
+          <input type="text" name="contact" placeholder="전화번호 또는 이메일">
+        </div>
+        <div class="form-group">
+          <label>문의 내용</label>
+          <textarea name="message" placeholder="어떤 매장을 운영하시는지, 어떤 홈페이지를 원하시는지 편하게 적어주세요."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">문의 보내기 &#8594;</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 JEEKS STUDIO. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Scroll Top -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+<script>
+// Theme Toggle
+function toggleTheme() {
+  const html = document.documentElement;
+  const icon = document.getElementById('themeIcon');
+  if (html.getAttribute('data-theme') === 'dark') {
+    html.removeAttribute('data-theme');
+    icon.innerHTML = '☾'; // moon
+    localStorage.setItem('theme', 'light');
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    icon.innerHTML = '☀'; // sun
+    localStorage.setItem('theme', 'dark');
+  }
+}
+
+// Load saved theme
+(function() {
+  const saved = localStorage.getItem('theme');
+  const icon = document.getElementById('themeIcon');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    icon.innerHTML = '☀';
+  }
+})();
+
+// Mobile Menu
+function toggleMenu() {
+  document.getElementById('hamburger').classList.toggle('active');
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+function closeMenu() {
+  document.getElementById('hamburger').classList.remove('active');
+  document.getElementById('navLinks').classList.remove('open');
+}
+
+// Scroll Top Button
+window.addEventListener('scroll', function() {
+  const btn = document.getElementById('scrollTop');
+  if (window.scrollY > 500) {
+    btn.classList.add('visible');
+  } else {
+    btn.classList.remove('visible');
+  }
+});
+
+// Fade-in Animation
+const observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-up').forEach(function(el) {
+  observer.observe(el);
+});
+
+// Active nav on scroll
+window.addEventListener('scroll', function() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  let current = '';
+  sections.forEach(function(section) {
+    const top = section.offsetTop - 100;
+    if (window.scrollY >= top) {
+      current = section.getAttribute('id');
+    }
+  });
+  navLinks.forEach(function(link) {
+    link.style.color = '';
+    if (link.getAttribute('href') === '#' + current) {
+      link.style.color = 'var(--accent)';
+    }
+  });
+});
+</script>
+
+</body>
+</html>
